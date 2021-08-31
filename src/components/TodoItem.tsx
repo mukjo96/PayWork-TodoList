@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import {
     Dimensions,
@@ -8,7 +9,7 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { toggleCheckTodo } from "../api/fetchTodo.api";
-import { actApiRequest } from "../store/actions";
+import { actApiRequest, actEdit } from "../store/actions";
 import { FeatherIcon } from "./Icons/Icon";
 
 const TodoItem = ({ todo }: { todo: todoItem }) => {
@@ -18,6 +19,7 @@ const TodoItem = ({ todo }: { todo: todoItem }) => {
             <TouchableOpacity
                 onPress={() => {
                     toggleCheckTodo(parseInt(todo.id), !todo.isCheck);
+                    dispatch(actApiRequest());
                 }}
             >
                 {todo.isCheck ? (
@@ -27,8 +29,10 @@ const TodoItem = ({ todo }: { todo: todoItem }) => {
                 )}
             </TouchableOpacity>
             <View style={styles.contents}>
-                <Text>{todo.content}</Text>
-                <Text>{todo.createdAt}</Text>
+                <Text style={styles.title}>{todo.content}</Text>
+                <Text style={styles.goalDate}>
+                    {todo.goalDate ? moment(todo.goalDate).fromNow() : ""}
+                </Text>
             </View>
         </View>
     );
@@ -37,8 +41,8 @@ export default TodoItem;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#f7f7f7",
-        shadowColor: "#000",
+        backgroundColor: "#fff",
+        shadowColor: "#8280FF",
         shadowOffset: {
             width: 0,
             height: 2,
@@ -58,5 +62,15 @@ const styles = StyleSheet.create({
     },
     contents: {
         marginLeft: 10,
+    },
+
+    title: {
+        fontSize: 16,
+        fontWeight: "600",
+    },
+
+    goalDate: {
+        fontSize: 12,
+        color: "#555",
     },
 });

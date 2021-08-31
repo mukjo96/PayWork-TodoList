@@ -4,6 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodo, fetchTodoList } from "../api/fetchTodo.api";
+import { IonIcon } from "../components/Icons/Icon";
 import TodoItem from "../components/TodoItem";
 import { actApiInit, actApiRequest } from "../store/actions";
 
@@ -41,10 +42,10 @@ const TodoList = (props: any) => {
             <View style={styles.rowBack}>
                 <Text></Text>
                 <TouchableOpacity
-                    style={[styles.backRightBtn, styles.backRightBtnRight]}
+                    style={styles.backRightBtn}
                     onPress={() => handleTodoDelete(data.item.id)}
                 >
-                    <Text style={styles.backTextWhite}>Delete</Text>
+                    <IonIcon name="trash-sharp" size={24} color="#FF7285" />
                 </TouchableOpacity>
             </View>
         );
@@ -84,17 +85,14 @@ const styles = StyleSheet.create({
     flatList: {
         padding: 10,
     },
-
-    backTextWhite: {
-        color: "#FFF",
-    },
     rowBack: {
         alignItems: "center",
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingLeft: 15,
-        marginBottom: 12,
+        height: "80%",
+        marginBottom: 14,
     },
     backRightBtn: {
         alignItems: "center",
@@ -103,9 +101,6 @@ const styles = StyleSheet.create({
         position: "absolute",
         top: 0,
         width: 75,
-    },
-    backRightBtnRight: {
-        backgroundColor: "red",
         borderRadius: 5,
         right: 0,
     },

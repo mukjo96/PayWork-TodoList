@@ -44,7 +44,6 @@ function RootNavigator() {
                         </TouchableOpacity>
                     ),
                     headerTitle: "Add Task",
-                    // headerTransparent: true,
                 })}
             >
                 <Stack.Screen name="Modal" component={AddTaskModal} />
@@ -63,14 +62,14 @@ function BottomTabNavigator() {
         <BottomTab.Navigator
             initialRouteName="TaskList"
             screenOptions={{
-                tabBarActiveTintColor: "#e66e2c",
-                tabBarInactiveTintColor: "white",
+                tabBarActiveTintColor: "#5552fd",
+                tabBarInactiveTintColor: "#333",
                 headerTitleStyle: {
                     fontSize: 24,
                     fontWeight: "bold",
                 },
                 tabBarStyle: {
-                    backgroundColor: "#2f324e",
+                    backgroundColor: "#fff",
                 },
                 headerTitleAlign: "left",
                 headerStyle: {
@@ -103,7 +102,7 @@ function BottomTabNavigator() {
                                 height: 48,
                                 width: 48,
                                 borderRadius: 48,
-                                backgroundColor: "#e66e2c",
+                                backgroundColor: "#8280FF",
                                 justifyContent: "center",
                                 alignItems: "center",
                             }}
