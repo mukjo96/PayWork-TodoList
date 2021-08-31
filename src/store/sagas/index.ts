@@ -1,16 +1,24 @@
-import { put, takeLatest, call, all, fork } from "redux-saga/effects";
-import * as actions from "../actions";
-// import Api from '../lib/api';
-
-function* workerSetStatus() {
-    //   const { status } = yield call(Api);
-    yield put({ type: "GET_GOOGLE_SUCCESS", status });
-}
-
-function* watchSetStatus() {
-    yield takeLatest("GET_GOOGLE", workerSetStatus);
-}
+import { put, call, takeLatest, all, fork, take } from "redux-saga/effects";
+import { fetchTodoList } from "../../api/fetchTodo.api";
+import { actApiFail, actApiSuccess } from "../actions";
+import { EActionTypes } from "../interfaces/actions.interfaces";
 
 export default function* root() {
-    yield all([fork(watchSetStatus)]);
+    yield all([fork(rootSaga)]);
+}
+
+function* rootSaga() {
+    yield takeLatest(EActionTypes.API_REQUEST, fetchTodoData);
+}
+
+function* fetchTodoData() {
+    try {
+        const data: todoItem[] = yield call(fetchTodoList);
+
+        yield put(actApiSuccess(data));
+    } catch (error) {
+        yield put(actApiFail(error));
+        return;
+    } finally {
+    }
 }

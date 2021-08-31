@@ -23,7 +23,7 @@ export interface IActApiRequest {
 
 export interface IActApiSuccess {
     type: EActionTypes.API_SUCCESS;
-    data: IApiResult;
+    data: todoItem[];
 }
 
 export interface IActApiFail {

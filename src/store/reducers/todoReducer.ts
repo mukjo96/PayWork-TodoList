@@ -1,28 +1,13 @@
-import {
-    EActionTypes,
-    IActions,
-} from "../interfaces/iApiExample/actions.interfaces";
+import { EActionTypes, IActions } from "../interfaces/actions.interfaces";
+import { IApiResult } from "../interfaces/reducers.interfaces";
 
 const initialState = {
-    count: 2,
-    todoList: [
-        {
-            id: "string",
-            content: "string",
-            isCheck: true,
-            createdAt: "2021-05-26T11:51:05.097Z",
-        },
-        {
-            id: "string",
-            content: "string",
-            isCheck: false,
-            createdAt: "2021-05-26T16:15:25.729Z",
-        },
-    ],
+    count: 0,
+    todoList: [],
     error: null,
 };
 
-export default function testReducer(state = initialState, action: IActions) {
+export default function todoReducer(state = initialState, action: IActions) {
     switch (action.type) {
         case EActionTypes.API_SUCCESS:
             return {

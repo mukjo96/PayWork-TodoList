@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-
-import testReducer from "./test";
+import todoReducer from "./todoReducer";
 
 const rootReducer = combineReducers({
-    testReducer,
+    todoReducer,
 });
 
 export default rootReducer;
+export type RootState = ReturnType<typeof rootReducer>;

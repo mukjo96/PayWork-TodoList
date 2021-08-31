@@ -4,8 +4,7 @@ import {
     IActApiInit,
     IActApiRequest,
     IActApiSuccess,
-} from "../interfaces/iApiExample/Actions.interfaces";
-import { IApiResult } from "../interfaces/iApiExample/reducers.interfaces";
+} from "../interfaces/actions.interfaces";
 
 export function actApiInit(): IActApiInit {
     return {
@@ -19,7 +18,7 @@ export function actApiRequest(): IActApiRequest {
     };
 }
 
-export function actApiSuccess(data: IApiResult): IActApiSuccess {
+export function actApiSuccess(data: todoItem[]): IActApiSuccess {
     return {
         type: EActionTypes.API_SUCCESS,
         data,
