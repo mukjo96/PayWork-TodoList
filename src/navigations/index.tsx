@@ -70,7 +70,12 @@ function BottomTabNavigator() {
                     backgroundColor: "#2f324e",
                 },
                 headerTitleAlign: "left",
-                headerTransparent: true,
+                headerStyle: {
+                    backgroundColor: "white",
+                    elevation: 0,
+                    shadowOpacity: 0,
+                    borderBottomWidth: 0,
+                },
             }}
         >
             <BottomTab.Screen
