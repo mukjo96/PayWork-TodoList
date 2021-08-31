@@ -4,6 +4,8 @@ import {
     IActApiInit,
     IActApiRequest,
     IActApiSuccess,
+    IActDelete,
+    IActEdit,
 } from "../interfaces/actions.interfaces";
 
 export function actApiInit(): IActApiInit {
@@ -29,5 +31,19 @@ export function actApiFail(error: Error): IActApiFail {
     return {
         type: EActionTypes.API_FAIL,
         error,
+    };
+}
+
+export function actEdit(data: todoItem[]): IActEdit {
+    return {
+        type: EActionTypes.EDIT,
+        data,
+    };
+}
+
+export function actDelete(id: number): IActDelete {
+    return {
+        type: EActionTypes.DELETE,
+        id,
     };
 }

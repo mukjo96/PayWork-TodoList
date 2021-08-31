@@ -5,13 +5,17 @@ export enum EActionTypes {
     API_REQUEST = "API_REQUEST",
     API_SUCCESS = "API_SUCCESS",
     API_FAIL = "API_FAIL",
+    EDIT = "EDIT",
+    DELETE = "DELETE",
 }
 
 export type IActions =
     | IActApiInit
     | IActApiRequest
     | IActApiSuccess
-    | IActApiFail;
+    | IActApiFail
+    | IActEdit
+    | IActDelete;
 
 export interface IActApiInit {
     type: EActionTypes.API_INIT;
@@ -29,4 +33,14 @@ export interface IActApiSuccess {
 export interface IActApiFail {
     type: EActionTypes.API_FAIL;
     error: Error;
+}
+
+export interface IActEdit {
+    type: EActionTypes.EDIT;
+    data: todoItem[];
+}
+
+export interface IActDelete {
+    type: EActionTypes.DELETE;
+    id: number;
 }
