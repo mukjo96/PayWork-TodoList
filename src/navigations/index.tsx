@@ -58,7 +58,7 @@ const CreatePlaceholder = () => (
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator
-            initialRouteName="TabOne"
+            initialRouteName="TaskList"
             screenOptions={{
                 tabBarActiveTintColor: "#e66e2c",
                 tabBarInactiveTintColor: "white",
@@ -79,9 +79,9 @@ function BottomTabNavigator() {
             }}
         >
             <BottomTab.Screen
-                name="TabOne"
+                name="TaskList"
                 component={TodoList}
-                options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
+                options={({ navigation }: RootTabScreenProps<"TaskList">) => ({
                     title: "Task List",
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="list" color={color} />
@@ -117,7 +117,7 @@ function BottomTabNavigator() {
                 })}
             />
             <BottomTab.Screen
-                name="TabTwo"
+                name="Done"
                 component={TodoList}
                 options={{
                     title: "Done",

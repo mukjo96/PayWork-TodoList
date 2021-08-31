@@ -1,30 +1,65 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
-import { editTodoList, fetchTodoList } from "../api/fetchTodo.api";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SwipeListView } from "react-native-swipe-list-view";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTodo, fetchTodoList } from "../api/fetchTodo.api";
 import TodoItem from "../components/TodoItem";
+import { actApiInit, actApiRequest } from "../store/actions";
 
-const TodoList = () => {
-    const [todoList, setTodoList] = useState([]);
+const TodoList = (props: any) => {
+    const dispatch = useDispatch();
+    const todoList = useSelector((state: any) => state.todoReducer.todoList);
     const [isLoading, setIsLoading] = useState(false);
+    const [filteredList, setFilteredList] = useState<todoItem[]>([]);
     useEffect(() => {
         (async () => {
             setIsLoading(true);
-            setTodoList(await fetchTodoList());
+            dispatch(actApiInit());
+            dispatch(actApiRequest());
             setIsLoading(false);
         })();
-        // editTodoList(1, "수정 완료");
+        setFilteredList(
+            props.route.name === "TaskList"
+                ? todoList.filter((item: todoItem) => !item.isCheck)
+                : todoList.filter((item: todoItem) => item.isCheck)
+        );
     }, []);
 
-    if (isLoading) return <View></View>;
+    async function handleTodoDelete(id: number) {
+        await deleteTodo(id);
+    }
+
+    const renderHiddenItem = (data: any) => {
+        return (
+            <View style={styles.rowBack}>
+                <Text></Text>
+                <TouchableOpacity
+                    style={[styles.backRightBtn, styles.backRightBtnRight]}
+                    onPress={() => handleTodoDelete(data.item.id)}
+                >
+                    <Text style={styles.backTextWhite}>Delete</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    };
+
+    if (isLoading)
+        return (
+            <View>
+                <Text>Loading..</Text>
+            </View>
+        );
     return (
         <View style={styles.container}>
-            <FlatList
+            <SwipeListView
                 style={styles.flatList}
-                data={todoList}
+                data={filteredList}
                 renderItem={({ item }) => <TodoItem todo={item} />}
-                keyExtractor={(item) => item.id}
+                renderHiddenItem={renderHiddenItem}
+                leftOpenValue={0}
+                rightOpenValue={-75}
+                keyExtractor={(item: todoItem) => item.id}
             />
         </View>
     );
@@ -42,5 +77,30 @@ const styles = StyleSheet.create({
 
     flatList: {
         padding: 10,
+    },
+
+    backTextWhite: {
+        color: "#FFF",
+    },
+    rowBack: {
+        alignItems: "center",
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingLeft: 15,
+        marginBottom: 12,
+    },
+    backRightBtn: {
+        alignItems: "center",
+        bottom: 0,
+        justifyContent: "center",
+        position: "absolute",
+        top: 0,
+        width: 75,
+    },
+    backRightBtnRight: {
+        backgroundColor: "red",
+        borderRadius: 5,
+        right: 0,
     },
 });

@@ -20,12 +20,31 @@ export async function fetchTodoList() {
     }
 }
 
-export async function editTodoList(id: number, content: string) {
+export async function addTodo(content: string) {
     try {
-        let response = await TodoClient.patch(`/todoList/${id}`, {
+        await TodoClient.post("/todoList", {
+            content: content,
+            isCheck: false,
+            createdAt: Date(),
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function editTodo(id: number, content: string) {
+    try {
+        await TodoClient.patch(`/todoList/${id}`, {
             content: content,
         });
-        console.log(response);
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function deleteTodo(id: number) {
+    try {
+        await TodoClient.delete(`/todoList/${id}`);
     } catch (e) {
         console.log(e);
     }

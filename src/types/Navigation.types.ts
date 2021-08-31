@@ -22,8 +22,8 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 
 export type RootTabParamList = {
     Create: undefined;
-    TabOne: undefined;
-    TabTwo: undefined;
+    TaskList: undefined;
+    Done: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
