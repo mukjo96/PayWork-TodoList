@@ -7,6 +7,7 @@ import { TouchableOpacity, View, Text } from "react-native";
 import { useSelector } from "react-redux";
 import { TabBarIcon } from "../components/Icons/Icon";
 import AddTaskModal from "../screens/AddTaskModal";
+import EditTaskModal from "../screens/EditTaskModal";
 import TodoList from "../screens/TodoList";
 import { IApiResult } from "../store/interfaces/reducers.interfaces";
 import { rootStateInterface } from "../store/interfaces/root.interfaces";
@@ -47,10 +48,12 @@ function RootNavigator() {
                             <TabBarIcon name="chevron-left" color="black" />
                         </TouchableOpacity>
                     ),
-                    headerTitle: "Add Task",
+                    headerTitle:
+                        route.name === "AddModal" ? "Add Task" : "Edit Task",
                 })}
             >
-                <Stack.Screen name="Modal" component={AddTaskModal} />
+                <Stack.Screen name="AddModal" component={AddTaskModal} />
+                <Stack.Screen name="EditModal" component={EditTaskModal} />
             </Stack.Group>
         </Stack.Navigator>
     );
@@ -137,7 +140,7 @@ function BottomTabNavigator() {
                 listeners={({ navigation }) => ({
                     tabPress: (e) => {
                         e.preventDefault();
-                        navigation.navigate("Modal");
+                        navigation.navigate("AddModal");
                     },
                 })}
             />
