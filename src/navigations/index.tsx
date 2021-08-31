@@ -1,9 +1,9 @@
-import { Feather } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
+import { TabBarIcon } from "../components/Icons/Icon";
 import AddTaskModal from "../screens/AddTaskModal";
 import TodoList from "../screens/TodoList";
 import {
@@ -32,17 +32,20 @@ function RootNavigator() {
                 options={{ headerShown: false }}
             />
             <Stack.Group
-                screenOptions={{
+                screenOptions={({ navigation, route }) => ({
                     presentation: "modal",
                     headerTitleStyle: {
                         fontSize: 24,
                         fontWeight: "bold",
                     },
                     headerLeft: () => (
-                        <TabBarIcon name="chevron-left" color="black" />
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <TabBarIcon name="chevron-left" color="black" />
+                        </TouchableOpacity>
                     ),
+                    headerTitle: "Add Task",
                     // headerTransparent: true,
-                }}
+                })}
             >
                 <Stack.Screen name="Modal" component={AddTaskModal} />
             </Stack.Group>
@@ -128,11 +131,4 @@ function BottomTabNavigator() {
             />
         </BottomTab.Navigator>
     );
-}
-
-function TabBarIcon(props: {
-    name: React.ComponentProps<typeof Feather>["name"];
-    color: string;
-}) {
-    return <Feather size={24} style={{ marginBottom: -3 }} {...props} />;
 }

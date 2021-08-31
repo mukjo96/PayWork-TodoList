@@ -9,12 +9,12 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
             Root: {
                 screens: {
-                    TabOne: {
+                    TaskList: {
                         screens: {
                             TabOneScreen: "one",
                         },
                     },
-                    TabTwo: {
+                    Done: {
                         screens: {
                             TabTwoScreen: "two",
                         },

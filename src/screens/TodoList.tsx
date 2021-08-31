@@ -19,15 +19,21 @@ const TodoList = (props: any) => {
             dispatch(actApiRequest());
             setIsLoading(false);
         })();
-        setFilteredList(
-            props.route.name === "TaskList"
-                ? todoList.filter((item: todoItem) => !item.isCheck)
-                : todoList.filter((item: todoItem) => item.isCheck)
-        );
     }, []);
+
+    useEffect(() => {
+        if (todoList) {
+            const newList =
+                props.route.name === "TaskList"
+                    ? todoList.filter((item: todoItem) => !item.isCheck)
+                    : todoList.filter((item: todoItem) => item.isCheck);
+            setFilteredList([...newList]);
+        }
+    }, [todoList]);
 
     async function handleTodoDelete(id: number) {
         await deleteTodo(id);
+        dispatch(actApiRequest());
     }
 
     const renderHiddenItem = (data: any) => {

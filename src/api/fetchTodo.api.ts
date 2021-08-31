@@ -13,18 +13,18 @@ const TodoClient = axios.create({
 export async function fetchTodoList() {
     try {
         let response = await TodoClient.get("/todoList");
-        console.log(response.data);
         return response.data;
     } catch (e) {
         console.log(e);
     }
 }
 
-export async function addTodo(content: string) {
+export async function addTodo(content: string, date?: Date) {
     try {
         await TodoClient.post("/todoList", {
             content: content,
             isCheck: false,
+            goalDate: date ?? null,
             createdAt: Date(),
         });
     } catch (e) {
@@ -32,10 +32,26 @@ export async function addTodo(content: string) {
     }
 }
 
-export async function editTodo(id: number, content: string) {
+export async function editTodo(id: number, content: string, date?: Date) {
+    try {
+        await TodoClient.patch(
+            `/todoList/${id}`,
+            date
+                ? {
+                      content: content,
+                      goalDate: date,
+                  }
+                : { content: content }
+        );
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function toggleCheckTodo(id: number, isCheck: boolean) {
     try {
         await TodoClient.patch(`/todoList/${id}`, {
-            content: content,
+            isCheck: isCheck,
         });
     } catch (e) {
         console.log(e);

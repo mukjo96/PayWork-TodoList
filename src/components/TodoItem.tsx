@@ -1,15 +1,31 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import {
+    Dimensions,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import { toggleCheckTodo } from "../api/fetchTodo.api";
+import { actApiRequest } from "../store/actions";
+import { FeatherIcon } from "./Icons/Icon";
 
 const TodoItem = ({ todo }: { todo: todoItem }) => {
+    const dispatch = useDispatch();
     return (
         <View style={styles.container}>
-            {todo.isCheck ? (
-                <Feather size={24} name="check-circle" />
-            ) : (
-                <Feather size={24} name="circle" />
-            )}
+            <TouchableOpacity
+                onPress={() => {
+                    toggleCheckTodo(parseInt(todo.id), !todo.isCheck);
+                }}
+            >
+                {todo.isCheck ? (
+                    <FeatherIcon size={24} name="check-circle" color="black" />
+                ) : (
+                    <FeatherIcon size={24} name="circle" color="black" />
+                )}
+            </TouchableOpacity>
             <View style={styles.contents}>
                 <Text>{todo.content}</Text>
                 <Text>{todo.createdAt}</Text>
