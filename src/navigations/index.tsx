@@ -1,11 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import moment from "moment";
 import * as React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
+import { useSelector } from "react-redux";
 import { TabBarIcon } from "../components/Icons/Icon";
 import AddTaskModal from "../screens/AddTaskModal";
 import TodoList from "../screens/TodoList";
+import { IApiResult } from "../store/interfaces/reducers.interfaces";
+import { rootStateInterface } from "../store/interfaces/root.interfaces";
 import {
     RootStackParamList,
     RootTabParamList,
@@ -58,6 +62,20 @@ const CreatePlaceholder = () => (
 );
 
 function BottomTabNavigator() {
+    const taskCount = useSelector(
+        (state: rootStateInterface): number =>
+            state.todoReducer.todoList.filter((item) =>
+                item.goalDate ? moment(item.goalDate).isAfter(new Date()) : true
+            ).length
+    );
+    const taskDoneCount = useSelector(
+        (state: rootStateInterface): number =>
+            state.todoReducer.todoList.filter((item) =>
+                item.goalDate
+                    ? !moment(item.goalDate).isAfter(new Date())
+                    : false
+            ).length
+    );
     return (
         <BottomTab.Navigator
             initialRouteName="TaskList"
@@ -84,7 +102,12 @@ function BottomTabNavigator() {
                 name="TaskList"
                 component={TodoList}
                 options={({ navigation }: RootTabScreenProps<"TaskList">) => ({
-                    title: "Task List",
+                    title: `Task List`,
+                    headerRight: () => (
+                        <Text style={{ marginRight: "10%", fontSize: 16 }}>
+                            {taskCount}
+                        </Text>
+                    ),
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="list" color={color} />
                     ),
@@ -122,9 +145,14 @@ function BottomTabNavigator() {
                 name="Done"
                 component={TodoList}
                 options={{
-                    title: "Done",
+                    title: "Overdue",
+                    headerRight: () => (
+                        <Text style={{ marginRight: "10%", fontSize: 16 }}>
+                            {taskDoneCount}
+                        </Text>
+                    ),
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="check-circle" color={color} />
+                        <TabBarIcon name="clock" color={color} />
                     ),
                 }}
             />

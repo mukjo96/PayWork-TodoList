@@ -1,5 +1,7 @@
+import moment from "moment";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { DatePickerIOS } from "react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,8 +28,16 @@ const TodoList = (props: any) => {
         if (todoList) {
             const newList =
                 props.route.name === "TaskList"
-                    ? todoList.filter((item: todoItem) => !item.isCheck)
-                    : todoList.filter((item: todoItem) => item.isCheck);
+                    ? todoList.filter((item: todoItem) =>
+                          item.goalDate
+                              ? moment(item.goalDate).isAfter(new Date())
+                              : true
+                      )
+                    : todoList.filter((item: todoItem) =>
+                          item.goalDate
+                              ? !moment(item.goalDate).isAfter(new Date())
+                              : false
+                      );
             setFilteredList([...newList]);
         }
     }, [todoList]);

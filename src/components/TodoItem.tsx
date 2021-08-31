@@ -29,7 +29,17 @@ const TodoItem = ({ todo }: { todo: todoItem }) => {
                 )}
             </TouchableOpacity>
             <View style={styles.contents}>
-                <Text style={styles.title}>{todo.content}</Text>
+                <Text
+                    style={{
+                        ...styles.title,
+                        color: todo.isCheck ? "#555555" : "black",
+                        textDecorationLine: todo.isCheck
+                            ? "line-through"
+                            : "none",
+                    }}
+                >
+                    {todo.content}
+                </Text>
                 <Text style={styles.goalDate}>
                     {todo.goalDate ? moment(todo.goalDate).fromNow() : ""}
                 </Text>
@@ -52,7 +62,7 @@ const styles = StyleSheet.create({
 
         elevation: 5,
         borderRadius: 5,
-        padding: 10,
+        padding: 15,
         width: Dimensions.get("screen").width * 0.9,
         display: "flex",
         flexDirection: "row",

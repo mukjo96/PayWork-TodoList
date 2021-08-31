@@ -14,18 +14,22 @@ import { IonIcon } from "../components/Icons/Icon";
 import moment from "moment";
 import "moment/locale/ko";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { actApiRequest } from "../store/actions";
 
 const AddTaskModal = () => {
     const [text, onChangeText] = useState<string>("");
     const [date, setDate] = useState<Date>(new Date());
     const [isOnDate, setIsOnDate] = useState(true);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const toggleDateSwitch = () => setIsOnDate((prevState) => !prevState);
 
     const handleSubmit = () => {
         if (text) {
             isOnDate ? addTodo(text, date) : addTodo(text);
+            dispatch(actApiRequest());
             navigation.goBack();
         }
     };
