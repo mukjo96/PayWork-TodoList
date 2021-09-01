@@ -19,20 +19,30 @@ export async function fetchTodoList() {
     }
 }
 
-export async function addTodo(content: string, date?: Date) {
+export async function addTodo(
+    content: string,
+    priority: priorityType,
+    date?: Date
+) {
     try {
         await TodoClient.post("/todoList", {
             content: content,
             isCheck: false,
             goalDate: date ?? null,
             createdAt: Date(),
+            priority: priority,
         });
     } catch (e) {
         console.log(e);
     }
 }
 
-export async function editTodo(id: number, content: string, date?: Date) {
+export async function editTodo(
+    id: number,
+    content: string,
+    priority: priorityType,
+    date?: Date
+) {
     try {
         await TodoClient.patch(
             `/todoList/${id}`,
@@ -40,8 +50,9 @@ export async function editTodo(id: number, content: string, date?: Date) {
                 ? {
                       content: content,
                       goalDate: date,
+                      priority: priority,
                   }
-                : { content: content }
+                : { content: content, priority: priority }
         );
     } catch (e) {
         console.log(e);

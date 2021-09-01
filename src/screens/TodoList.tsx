@@ -84,7 +84,7 @@ const TodoList = (props: any) => {
                 renderHiddenItem={renderHiddenItem}
                 leftOpenValue={75}
                 rightOpenValue={-75}
-                keyExtractor={(item: todoItem) => item.id}
+                keyExtractor={(item: todoItem) => item.id.toString()}
             />
         </View>
     );

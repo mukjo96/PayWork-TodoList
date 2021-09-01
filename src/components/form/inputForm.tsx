@@ -1,11 +1,13 @@
 import React, { Dispatch } from "react";
 import {
+    Button,
     SafeAreaView,
     StyleSheet,
     Switch,
     Text,
     TextInput,
     TouchableHighlight,
+    TouchableOpacity,
     View,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
@@ -20,6 +22,8 @@ interface formProps {
     setDate: React.Dispatch<React.SetStateAction<Date>>;
     isOnDate: boolean;
     setIsOnDate: React.Dispatch<React.SetStateAction<boolean>>;
+    priority: priorityType;
+    setPriority: React.Dispatch<React.SetStateAction<priorityType>>;
     handleSubmit: () => void;
 }
 
@@ -30,9 +34,14 @@ const InputForm = ({
     setDate,
     isOnDate,
     setIsOnDate,
+    priority,
+    setPriority,
     handleSubmit,
 }: formProps) => {
     const toggleDateSwitch = () => setIsOnDate((prevState) => !prevState);
+    const handlePriorityButton = (priority: priorityType) => {
+        setPriority(priority);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -44,8 +53,8 @@ const InputForm = ({
                     placeholder="What do you need to do?"
                     placeholderTextColor="#555"
                 />
-                <View style={styles.dateContainer}>
-                    <View style={styles.dateInfo}>
+                <View style={styles.subTitleContainer}>
+                    <View style={styles.menuInfo}>
                         <IonIcon name="ios-alarm" size={20} color="#B4B4C6" />
                         <Text
                             style={{
@@ -75,8 +84,89 @@ const InputForm = ({
                         alignSelf: "center",
                     }}
                 />
-            </View>
 
+                <View style={styles.subTitleContainer}>
+                    <View style={styles.menuInfo}>
+                        <IonIcon
+                            name="alert-circle"
+                            size={20}
+                            color="#B4B4C6"
+                        />
+                        <Text style={styles.dateText}>Priority</Text>
+                    </View>
+                    <View style={styles.menuInfo}>
+                        <TouchableOpacity
+                            key="1"
+                            onPress={() => handlePriorityButton(1)}
+                        >
+                            <View
+                                style={{
+                                    ...styles.priorityButton,
+                                    backgroundColor:
+                                        priority === 1
+                                            ? "#DAF7E8"
+                                            : "transparent",
+                                    borderColor:
+                                        priority === 1 ? "#4AD991" : "#B4B4C6",
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        ...styles.coloredCircle,
+                                        backgroundColor: "#4AD991",
+                                    }}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            key="2"
+                            onPress={() => handlePriorityButton(2)}
+                        >
+                            <View
+                                style={{
+                                    ...styles.priorityButton,
+                                    backgroundColor:
+                                        priority === 2
+                                            ? "#FFF4E5"
+                                            : "transparent",
+                                    borderColor:
+                                        priority === 2 ? "#FFCA83" : "#B4B4C6",
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        ...styles.coloredCircle,
+                                        backgroundColor: "#FFCA83",
+                                    }}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            key="3"
+                            onPress={() => handlePriorityButton(3)}
+                        >
+                            <View
+                                style={{
+                                    ...styles.priorityButton,
+                                    backgroundColor:
+                                        priority === 3
+                                            ? "#FFE2E6"
+                                            : "transparent",
+                                    borderColor:
+                                        priority === 3 ? "#FF7285" : "#B4B4C6",
+                                }}
+                            >
+                                <View
+                                    style={{
+                                        ...styles.coloredCircle,
+                                        backgroundColor: "#FF7285",
+                                    }}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
             <TouchableHighlight
                 style={styles.submitButton}
                 onPress={handleSubmit}
@@ -94,14 +184,15 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         backgroundColor: "white",
     },
-    dateContainer: {
+    subTitleContainer: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         marginHorizontal: "5%",
+        marginVertical: "10%",
     },
-    dateInfo: {
+    menuInfo: {
         flexDirection: "row",
         alignItems: "center",
     },
@@ -128,6 +219,22 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+    },
+    priorityButton: {
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+        marginLeft: 16,
+        borderColor: "#B4B4C6",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    coloredCircle: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: "#4AD991",
     },
 
     submitButton: {

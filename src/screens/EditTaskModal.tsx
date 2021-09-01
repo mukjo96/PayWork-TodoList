@@ -25,14 +25,22 @@ const EditTaskModal = ({ route, navigation }: Props) => {
     const [isOnDate, setIsOnDate] = useState(
         route.params.goalDate ? true : false
     );
+    const [priority, setPriority] = useState<priorityType>(
+        route.params.priority
+    );
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
         if (text) {
             (async () => {
                 isOnDate
-                    ? await editTodo(parseInt(route.params.id), text, date)
-                    : await editTodo(parseInt(route.params.id), text);
+                    ? await editTodo(
+                          parseInt(route.params.id),
+                          text,
+                          priority,
+                          date
+                      )
+                    : await editTodo(parseInt(route.params.id), text, priority);
                 dispatch(actApiRequest());
                 navigation.goBack();
             })();
@@ -47,6 +55,8 @@ const EditTaskModal = ({ route, navigation }: Props) => {
             setDate={setDate}
             isOnDate={isOnDate}
             setIsOnDate={setIsOnDate}
+            priority={priority}
+            setPriority={setPriority}
             handleSubmit={handleSubmit}
         />
     );

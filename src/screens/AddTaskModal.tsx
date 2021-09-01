@@ -12,12 +12,13 @@ const AddTaskModal = () => {
     const [text, onChangeText] = useState<string>("");
     const [date, setDate] = useState<Date>(new Date());
     const [isOnDate, setIsOnDate] = useState(true);
+    const [priority, setPriority] = useState<priorityType>(1);
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
         if (text) {
-            isOnDate ? addTodo(text, date) : addTodo(text);
+            isOnDate ? addTodo(text, priority, date) : addTodo(text, priority);
             dispatch(actApiRequest());
             navigation.goBack();
         }
@@ -31,6 +32,8 @@ const AddTaskModal = () => {
             setDate={setDate}
             isOnDate={isOnDate}
             setIsOnDate={setIsOnDate}
+            priority={priority}
+            setPriority={setPriority}
             handleSubmit={handleSubmit}
         />
     );

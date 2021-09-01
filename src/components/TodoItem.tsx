@@ -16,34 +16,51 @@ const TodoItem = ({ todo }: { todo: todoItem }) => {
     const dispatch = useDispatch();
     return (
         <View style={styles.container}>
-            <TouchableOpacity
-                onPress={() => {
-                    toggleCheckTodo(parseInt(todo.id), !todo.isCheck);
-                    dispatch(actApiRequest());
-                }}
-            >
-                {todo.isCheck ? (
-                    <FeatherIcon size={24} name="check-circle" color="black" />
-                ) : (
-                    <FeatherIcon size={24} name="circle" color="black" />
-                )}
-            </TouchableOpacity>
-            <View style={styles.contents}>
-                <Text
-                    style={{
-                        ...styles.title,
-                        color: todo.isCheck ? "#555555" : "black",
-                        textDecorationLine: todo.isCheck
-                            ? "line-through"
-                            : "none",
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <TouchableOpacity
+                    onPress={() => {
+                        toggleCheckTodo(parseInt(todo.id), !todo.isCheck);
+                        dispatch(actApiRequest());
                     }}
                 >
-                    {todo.content}
-                </Text>
-                <Text style={styles.goalDate}>
-                    {todo.goalDate ? moment(todo.goalDate).fromNow() : ""}
-                </Text>
+                    {todo.isCheck ? (
+                        <FeatherIcon
+                            size={24}
+                            name="check-circle"
+                            color="black"
+                        />
+                    ) : (
+                        <FeatherIcon size={24} name="circle" color="black" />
+                    )}
+                </TouchableOpacity>
+                <View style={styles.contents}>
+                    <Text
+                        style={{
+                            ...styles.title,
+                            color: todo.isCheck ? "#555555" : "black",
+                            textDecorationLine: todo.isCheck
+                                ? "line-through"
+                                : "none",
+                        }}
+                    >
+                        {todo.content}
+                    </Text>
+                    <Text style={styles.goalDate}>
+                        {todo.goalDate ? moment(todo.goalDate).fromNow() : ""}
+                    </Text>
+                </View>
             </View>
+            <View
+                style={{
+                    ...styles.priorityIndicator,
+                    backgroundColor:
+                        todo.priority === 1
+                            ? "#4AD991"
+                            : todo.priority === 2
+                            ? "#FFCA83"
+                            : "#FF7285",
+                }}
+            ></View>
         </View>
     );
 };
@@ -67,7 +84,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "flex-start",
+        justifyContent: "space-between",
         marginBottom: 12,
     },
     contents: {
@@ -82,5 +99,11 @@ const styles = StyleSheet.create({
     goalDate: {
         fontSize: 12,
         color: "#555",
+    },
+
+    priorityIndicator: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
     },
 });
