@@ -2,14 +2,27 @@ import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodo, fetchTodoList } from "../api/fetchTodo.api";
 import { FeatherIcon, IonIcon } from "../components/Icons/Icon";
-import TodoItem from "../components/TodoItem";
+import TodoItem from "../components/todoItem/TodoItem";
+
+import { LIST_TITLE } from "../constants/constants";
 import { actApiInit, actApiRequest } from "../store/actions";
 import { todoItem } from "../types/Todo.types";
+import {
+    laterTaskFilter,
+    overDueFilter,
+    todayTaskFilter,
+} from "../utils/filters";
 
 const TodoList = (props: any) => {
     const dispatch = useDispatch();
@@ -31,16 +44,8 @@ const TodoList = (props: any) => {
         if (todoList) {
             const newList =
                 props.route.name === "TaskList"
-                    ? todoList.filter((item: todoItem) =>
-                          item.goalDate
-                              ? moment(item.goalDate).isAfter(new Date())
-                              : true
-                      )
-                    : todoList.filter((item: todoItem) =>
-                          item.goalDate
-                              ? !moment(item.goalDate).isAfter(new Date())
-                              : false
-                      );
+                    ? todoList.filter((item: todoItem) => !item.isCheck)
+                    : todoList.filter((item: todoItem) => item.isCheck);
             setFilteredList([...newList]);
         }
     }, [todoList]);
@@ -57,7 +62,7 @@ const TodoList = (props: any) => {
                     style={styles.backLeftBtn}
                     onPress={() => navigation.navigate("EditModal", data.item)}
                 >
-                    <FeatherIcon name="edit" size={24} color="#8280FF" />
+                    <FeatherIcon name="edit" size={24} color="#333333" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.backRightBtn}
@@ -69,6 +74,15 @@ const TodoList = (props: any) => {
         );
     };
 
+    const overDueTaskList = overDueFilter(filteredList);
+    const todayTaskList = todayTaskFilter(filteredList);
+    const laterTaskList = laterTaskFilter(filteredList);
+    const newList = [
+        { title: LIST_TITLE.TODAY, data: todayTaskList },
+        { title: LIST_TITLE.LATER, data: laterTaskList },
+        { title: LIST_TITLE.OVERDUE, data: overDueTaskList },
+    ];
+
     if (isLoading)
         return (
             <View>
@@ -78,8 +92,21 @@ const TodoList = (props: any) => {
     return (
         <View style={styles.container}>
             <SwipeListView
+                useSectionList
+                renderSectionHeader={({ section }) =>
+                    section.data.length > 0 ? (
+                        <View style={styles.subTitle}>
+                            <Text style={styles.listTitle}>
+                                {section.title}
+                            </Text>
+                            <Text>{section.data.length}</Text>
+                        </View>
+                    ) : (
+                        <View></View>
+                    )
+                }
                 style={styles.flatList}
-                data={filteredList}
+                sections={newList}
                 renderItem={({ item }) => <TodoItem todo={item} />}
                 renderHiddenItem={renderHiddenItem}
                 leftOpenValue={75}
@@ -96,12 +123,22 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center",
     },
 
     flatList: {
         padding: 10,
+        alignSelf: "center",
+    },
+    listTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+
+    subTitle: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginHorizontal: "3%",
+        marginVertical: 14,
     },
     rowBack: {
         alignItems: "center",

@@ -3,3 +3,9 @@ export const PRIORITY = {
     RUNNING: 2,
     URGENT: 3,
 };
+
+export const LIST_TITLE = {
+    TODAY: "Today",
+    LATER: "Later",
+    OVERDUE: "Overdue",
+};
