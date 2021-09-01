@@ -10,6 +10,7 @@ import InputForm from "../components/form/inputForm";
 import { useEffect } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View } from "react-native";
+import { priorityType, todoItem } from "../types/Todo.types";
 
 type RootStackParamList = {
     EditModal: todoItem;

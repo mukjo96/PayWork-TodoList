@@ -7,12 +7,14 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { actApiRequest } from "../store/actions";
 import InputForm from "../components/form/inputForm";
+import { PRIORITY } from "../constants/constants";
+import { priorityType } from "../types/Todo.types";
 
 const AddTaskModal = () => {
     const [text, onChangeText] = useState<string>("");
     const [date, setDate] = useState<Date>(new Date());
     const [isOnDate, setIsOnDate] = useState(true);
-    const [priority, setPriority] = useState<priorityType>(1);
+    const [priority, setPriority] = useState<priorityType>(PRIORITY.ONGOING);
     const navigation = useNavigation();
     const dispatch = useDispatch();
 

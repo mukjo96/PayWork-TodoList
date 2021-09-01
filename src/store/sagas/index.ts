@@ -1,5 +1,6 @@
 import { put, call, takeLatest, all, fork, take } from "redux-saga/effects";
 import { fetchTodoList } from "../../api/fetchTodo.api";
+import { todoItem } from "../../types/Todo.types";
 import { actApiFail, actApiSuccess } from "../actions";
 import { EActionTypes } from "../interfaces/actions.interfaces";
 

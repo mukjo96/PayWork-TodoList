@@ -1,4 +1,5 @@
 import axios from "axios";
+import { priorityType } from "../types/Todo.types";
 
 const TodoClient = axios.create({
     baseURL: "https://paywork-todo-json.herokuapp.com",

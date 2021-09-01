@@ -1,6 +1,5 @@
 import React, { Dispatch } from "react";
 import {
-    Button,
     SafeAreaView,
     StyleSheet,
     Switch,
@@ -14,6 +13,7 @@ import DatePicker from "react-native-date-picker";
 
 import moment from "moment";
 import { IonIcon } from "../Icons/Icon";
+import { priorityType } from "../../types/Todo.types";
 
 interface formProps {
     text: string;

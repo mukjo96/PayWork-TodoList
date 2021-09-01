@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { toggleCheckTodo } from "../api/fetchTodo.api";
 import { actApiRequest, actEdit } from "../store/actions";
+import { todoItem } from "../types/Todo.types";
 import { FeatherIcon } from "./Icons/Icon";
 
 const TodoItem = ({ todo }: { todo: todoItem }) => {

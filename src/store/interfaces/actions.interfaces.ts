@@ -1,4 +1,4 @@
-import { IApiResult } from "./reducers.interfaces";
+import { todoItem } from "../../types/Todo.types";
 
 export enum EActionTypes {
     API_INIT = "API_INIT",

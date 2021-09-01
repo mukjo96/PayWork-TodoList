@@ -8,12 +8,9 @@ let middleware = [sagaMiddleware];
 
 middleware = [...middleware];
 
-const initialState = {};
-
 export function configureStore() {
     const store = createStore(
         rootReducer,
-        initialState,
         compose(applyMiddleware(...middleware))
     );
     return store;
