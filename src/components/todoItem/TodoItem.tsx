@@ -8,15 +8,21 @@ import {
     View,
 } from "react-native";
 import { useDispatch } from "react-redux";
-import { toggleCheckTodo } from "../api/fetchTodo.api";
-import { actApiRequest, actEdit } from "../store/actions";
-import { todoItem } from "../types/Todo.types";
-import { FeatherIcon } from "./Icons/Icon";
+import { toggleCheckTodo } from "../../api/fetchTodo.api";
+import { actApiRequest } from "../../store/actions";
+import { todoItem } from "../../types/Todo.types";
+import { FeatherIcon } from "../Icons/Icon";
 
 const TodoItem = ({ todo }: { todo: todoItem }) => {
     const dispatch = useDispatch();
+
     return (
-        <View style={styles.container}>
+        <View
+            style={{
+                ...styles.container,
+                shadowColor: todo.isCheck ? "#555555" : "#8280FF",
+            }}
+        >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity
                     onPress={() => {
@@ -39,9 +45,6 @@ const TodoItem = ({ todo }: { todo: todoItem }) => {
                         style={{
                             ...styles.title,
                             color: todo.isCheck ? "#555555" : "black",
-                            textDecorationLine: todo.isCheck
-                                ? "line-through"
-                                : "none",
                         }}
                     >
                         {todo.content}
@@ -70,7 +73,7 @@ export default TodoItem;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
-        shadowColor: "#8280FF",
+
         shadowOffset: {
             width: 0,
             height: 2,

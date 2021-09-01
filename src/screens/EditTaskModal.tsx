@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-import { addTodo, editTodo } from "../api/fetchTodo.api";
+import { editTodo } from "../api/fetchTodo.api";
 
 import "moment/locale/ko";
-import { useNavigation } from "@react-navigation/native";
+
 import { useDispatch } from "react-redux";
 import { actApiRequest } from "../store/actions";
 import InputForm from "../components/form/inputForm";
-import { useEffect } from "react";
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { View } from "react-native";
+
 import { priorityType, todoItem } from "../types/Todo.types";
 
 type RootStackParamList = {

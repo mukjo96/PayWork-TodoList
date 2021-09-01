@@ -9,7 +9,6 @@ import { TabBarIcon } from "../components/Icons/Icon";
 import AddTaskModal from "../screens/AddTaskModal";
 import EditTaskModal from "../screens/EditTaskModal";
 import TodoList from "../screens/TodoList";
-import { IApiResult } from "../store/interfaces/reducers.interfaces";
 import { rootStateInterface } from "../store/interfaces/root.interfaces";
 import {
     RootStackParamList,
@@ -65,20 +64,6 @@ const CreatePlaceholder = () => (
 );
 
 function BottomTabNavigator() {
-    const taskCount = useSelector(
-        (state: rootStateInterface): number =>
-            state.todoReducer.todoList.filter((item) =>
-                item.goalDate ? moment(item.goalDate).isAfter(new Date()) : true
-            ).length
-    );
-    const taskDoneCount = useSelector(
-        (state: rootStateInterface): number =>
-            state.todoReducer.todoList.filter((item) =>
-                item.goalDate
-                    ? !moment(item.goalDate).isAfter(new Date())
-                    : false
-            ).length
-    );
     return (
         <BottomTab.Navigator
             initialRouteName="TaskList"
@@ -106,11 +91,7 @@ function BottomTabNavigator() {
                 component={TodoList}
                 options={({ navigation }: RootTabScreenProps<"TaskList">) => ({
                     title: `Task List`,
-                    headerRight: () => (
-                        <Text style={{ marginRight: "10%", fontSize: 16 }}>
-                            {taskCount}
-                        </Text>
-                    ),
+
                     tabBarIcon: ({ color }) => (
                         <TabBarIcon name="list" color={color} />
                     ),
@@ -148,14 +129,10 @@ function BottomTabNavigator() {
                 name="Done"
                 component={TodoList}
                 options={{
-                    title: "Overdue",
-                    headerRight: () => (
-                        <Text style={{ marginRight: "10%", fontSize: 16 }}>
-                            {taskDoneCount}
-                        </Text>
-                    ),
+                    title: "Done",
+
                     tabBarIcon: ({ color }) => (
-                        <TabBarIcon name="clock" color={color} />
+                        <TabBarIcon name="check-square" color={color} />
                     ),
                 }}
             />
