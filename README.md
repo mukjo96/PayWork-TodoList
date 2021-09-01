@@ -1,4 +1,4 @@
-# PayWork Redux Saga를 이용한 Todo List 구현하기
+# PayWork - Redux Saga를 이용한 Todo List 구현하기
 
 ## 💁🏻‍♂ 실행 방법
 
@@ -13,8 +13,6 @@
 ios 시뮬레이터 활성화 후
 
 `Press i`
-
-<br/><br/>
 
 ## 🗂 구현 목록
 
@@ -46,7 +44,6 @@ ios 시뮬레이터 활성화 후
 -   `API_REQUEST` action이 발생하면 saga에서 api를 호출하는 비동기 함수를 실행
 -   api 호출 성공 시 `API_SUCCESS` action 호출, 실패 시 `API_FAIL` action 호출
 
-<br/><br/>
 
 ## 📕 사용한 기타 라이브러리
 
@@ -68,5 +65,19 @@ ios 시뮬레이터 활성화 후
 -   API fetch를 위해 사용
 
 ## 🚀 스크린샷
+### Task 추가
+![Add Task](https://user-images.githubusercontent.com/65903404/131688863-8fa7f541-2636-4498-967f-1758b2cb3a3b.gif)ㄴ
+
+### Task 수정
+![Edit Task](https://user-images.githubusercontent.com/65903404/131689873-42d065c3-f2b2-4029-86c3-2b66d9ec8039.gif)
+
+### Task 삭제
+![Delete Task](https://user-images.githubusercontent.com/65903404/131689902-a3917515-9546-4bc8-8459-de539eab024f.gif)
+
+### Task 완료
+![Done Task](https://user-images.githubusercontent.com/65903404/131690178-bb6ba855-69e3-42ce-bc1a-ede480267c94.gif)
+
+
+
 
 <br/><br/>
