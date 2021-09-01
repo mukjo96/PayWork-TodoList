@@ -1,14 +1,22 @@
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTodo, fetchTodoList } from "../api/fetchTodo.api";
+import { deleteTodo } from "../api/fetchTodo.api";
 import { FeatherIcon, IonIcon } from "../components/Icons/Icon";
 import TodoItem from "../components/todoItem/TodoItem";
 import { LIST_TITLE } from "../constants/constants";
 import { actApiInit, actApiRequest } from "../store/actions";
+import { rootStateInterface } from "../store/interfaces/root.interfaces";
 import { todoItem } from "../types/Todo.types";
 import {
     laterTaskFilter,
@@ -16,19 +24,20 @@ import {
     todayTaskFilter,
 } from "../utils/filters";
 
-const TodoList = (props: any) => {
+type Props = NativeStackScreenProps<any>;
+
+const TodoList = (props: Props) => {
     const dispatch = useDispatch();
-    const todoList = useSelector((state: any) => state.todoReducer.todoList);
-    const [isLoading, setIsLoading] = useState(false);
+    const todoList = useSelector(
+        (state: rootStateInterface): todoItem[] => state.todoReducer.todoList
+    );
     const [filteredList, setFilteredList] = useState<todoItem[]>([]);
     const navigation = useNavigation();
 
     useEffect(() => {
         (async () => {
-            setIsLoading(true);
             dispatch(actApiInit());
             dispatch(actApiRequest());
-            setIsLoading(false);
         })();
     }, []);
 
@@ -75,10 +84,17 @@ const TodoList = (props: any) => {
         { title: LIST_TITLE.OVERDUE, data: overDueTaskList },
     ];
 
-    if (isLoading)
+    if (!todoList)
         return (
-            <View>
-                <Text>Loading..</Text>
+            <View
+                style={{
+                    flex: 1,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "white",
+                }}
+            >
+                <ActivityIndicator size="large" color="#8280FF" />
             </View>
         );
     return (
