@@ -1,20 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import moment from "moment";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodo, fetchTodoList } from "../api/fetchTodo.api";
 import { FeatherIcon, IonIcon } from "../components/Icons/Icon";
 import TodoItem from "../components/todoItem/TodoItem";
-
 import { LIST_TITLE } from "../constants/constants";
 import { actApiInit, actApiRequest } from "../store/actions";
 import { todoItem } from "../types/Todo.types";

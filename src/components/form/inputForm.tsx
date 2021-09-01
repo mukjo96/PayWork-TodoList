@@ -10,7 +10,6 @@ import {
     View,
 } from "react-native";
 import DatePicker from "react-native-date-picker";
-
 import moment from "moment";
 import { IonIcon } from "../Icons/Icon";
 import { priorityType } from "../../types/Todo.types";

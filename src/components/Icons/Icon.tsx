@@ -1,5 +1,5 @@
-import { Feather, Ionicons } from "@expo/vector-icons";
 import React from "react";
+import { Feather, Ionicons } from "@expo/vector-icons";
 
 export function TabBarIcon(props: {
     name: React.ComponentProps<typeof Feather>["name"];

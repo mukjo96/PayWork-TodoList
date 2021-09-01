@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-
-import { addTodo } from "../api/fetchTodo.api";
-
-import "moment/locale/ko";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
+import "moment/locale/ko";
+import { addTodo } from "../api/fetchTodo.api";
 import { actApiRequest } from "../store/actions";
 import InputForm from "../components/form/inputForm";
 import { PRIORITY } from "../constants/constants";

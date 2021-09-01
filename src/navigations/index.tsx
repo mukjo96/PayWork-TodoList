@@ -1,15 +1,12 @@
+import React from "react";
+import { TouchableOpacity, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import moment from "moment";
-import * as React from "react";
-import { TouchableOpacity, View, Text } from "react-native";
-import { useSelector } from "react-redux";
 import { TabBarIcon } from "../components/Icons/Icon";
 import AddTaskModal from "../screens/AddTaskModal";
 import EditTaskModal from "../screens/EditTaskModal";
 import TodoList from "../screens/TodoList";
-import { rootStateInterface } from "../store/interfaces/root.interfaces";
 import {
     RootStackParamList,
     RootTabParamList,
