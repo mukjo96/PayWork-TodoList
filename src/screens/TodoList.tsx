@@ -35,11 +35,12 @@ const TodoList = (props: Props) => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        (async () => {
+        if (!todoList) {
             dispatch(actApiInit());
-            dispatch(actApiRequest());
-        })();
+        }
+        dispatch(actApiRequest());
     }, []);
+    //initialState로 초기화 후 API 호출 액션 실행
 
     useEffect(() => {
         if (todoList) {
@@ -50,6 +51,7 @@ const TodoList = (props: Props) => {
             setFilteredList([...newList]);
         }
     }, [todoList]);
+    //탭별로 todoList를 TaskList와 Done으로 분류
 
     async function handleTodoDelete(id: number) {
         await deleteTodo(id);
@@ -75,6 +77,7 @@ const TodoList = (props: Props) => {
         );
     };
 
+    //SectionList 생성을 위해 Today, Later, OverDue로 분류
     const overDueTaskList = overDueFilter(filteredList);
     const todayTaskList = todayTaskFilter(filteredList);
     const laterTaskList = laterTaskFilter(filteredList);

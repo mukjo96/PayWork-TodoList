@@ -13,6 +13,7 @@ import { actApiRequest } from "../../store/actions";
 import { todoItem } from "../../types/Todo.types";
 import { FeatherIcon } from "../Icons/Icon";
 
+//개별 todoItem 컴포넌트
 const TodoItem = ({ todo }: { todo: todoItem }) => {
     const dispatch = useDispatch();
 

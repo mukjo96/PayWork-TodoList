@@ -1,9 +1,9 @@
 import axios from "axios";
 import { priorityType } from "../types/Todo.types";
 
+// axios 인스턴스 생성
 const TodoClient = axios.create({
     baseURL: "https://paywork-todo-json.herokuapp.com",
-    timeout: 5000,
     headers: {
         Accept: "application/json",
         useQueryString: "true",
@@ -11,6 +11,7 @@ const TodoClient = axios.create({
     },
 });
 
+//GET 메소드 이용하여 api 호출
 export async function fetchTodoList() {
     try {
         let response = await TodoClient.get("/todoList");
@@ -20,6 +21,7 @@ export async function fetchTodoList() {
     }
 }
 
+//POST 메소드 이용하여 데이터 추가 요청
 export async function addTodo(
     content: string,
     priority: priorityType,
@@ -38,6 +40,7 @@ export async function addTodo(
     }
 }
 
+//PATCH 메소드 이용하여 특정 id 데이터 수정 요청
 export async function editTodo(
     id: number,
     content: string,
@@ -60,6 +63,7 @@ export async function editTodo(
     }
 }
 
+//PATCH 메소드 이용하여 특정 ID isCheck 속성 수정
 export async function toggleCheckTodo(id: number, isCheck: boolean) {
     try {
         await TodoClient.patch(`/todoList/${id}`, {
@@ -70,6 +74,7 @@ export async function toggleCheckTodo(id: number, isCheck: boolean) {
     }
 }
 
+//DELETE 메소드 이용하여 특정 ID 제거
 export async function deleteTodo(id: number) {
     try {
         await TodoClient.delete(`/todoList/${id}`);

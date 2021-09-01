@@ -8,6 +8,7 @@ import InputForm from "../components/form/inputForm";
 import { PRIORITY } from "../constants/constants";
 import { priorityType } from "../types/Todo.types";
 
+//Task 추가 모달 Screen
 const AddTaskModal = () => {
     const [text, onChangeText] = useState<string>("");
     const [date, setDate] = useState<Date>(new Date());

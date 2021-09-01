@@ -24,6 +24,7 @@ export default function Navigation() {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+//가장 상위에 Modal을 사용하기 위한 Stack
 function RootNavigator() {
     return (
         <Stack.Navigator>
@@ -60,6 +61,7 @@ const CreatePlaceholder = () => (
     <View style={{ flex: 1, backgroundColor: "blue" }} />
 );
 
+//BottomTab 네비게이션을 위한 BottomTabNavigator
 function BottomTabNavigator() {
     return (
         <BottomTab.Navigator

@@ -1,6 +1,5 @@
-import { Easing } from "react-native-reanimated";
+import { todoItem } from "../../types/Todo.types";
 import { EActionTypes, IActions } from "../interfaces/actions.interfaces";
-import { IApiResult } from "../interfaces/reducers.interfaces";
 
 const initialState = {
     count: 0,
@@ -8,6 +7,7 @@ const initialState = {
     error: null,
 };
 
+//Reducer 생성
 export default function todoReducer(state = initialState, action: IActions) {
     switch (action.type) {
         case EActionTypes.API_SUCCESS:

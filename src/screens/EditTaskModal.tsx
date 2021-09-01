@@ -13,6 +13,7 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, "EditModal">;
 
+// Task 수정 모달 Screen
 const EditTaskModal = ({ route, navigation }: Props) => {
     const [text, onChangeText] = useState<string>(route.params.content);
     const [date, setDate] = useState<Date>(
