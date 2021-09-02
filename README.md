@@ -9,9 +9,6 @@
 ### 실행
 
 `expo start --dev-client`
-
-ios 시뮬레이터 활성화 후
-
 `Press i`
 
 ## 🗂 구현 목록
@@ -26,7 +23,7 @@ ios 시뮬레이터 활성화 후
 
 -   BottomTab의 Create 탭을 통해 띄워지는 Modal에서 Task 추가
 -   Todo Item을 오른쪽으로 스와이프 하여 삭제
--   Todo Item을 왼쪽으로 스와이으 하여 나온 수정 버튼으로 띄워지는 Modal에서 Task 수정
+-   Todo Item을 왼쪽으로 스와이프 하여 나온 수정 버튼으로 띄워지는 Modal에서 Task 수정
 
 `Task 상태 및 중요도`
 
